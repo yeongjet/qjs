@@ -20662,6 +20662,8 @@ static JSAtom parse_ident(JSParseState *s, const uint8_t **pp,
         } else if (c >= 128) {
             c = unicode_from_utf8(p, UTF8_CHAR_LEN_MAX, &p1);
         }
+        int z = !lre_js_is_ident_next(c);
+        printf("%d,%d", z, c);
         if (!lre_js_is_ident_next(c))
             break;
         p = p1;

@@ -73,9 +73,15 @@ static inline int lre_js_is_ident_first(int c)
     }
 }
 
+// 是否需要继续读下一个字符
 static inline int lre_js_is_ident_next(int c)
 {
     if ((uint32_t)c < 128) {
+        uint32_t d = c >> 5;
+        uint32_t e = c & 31;
+        uint32_t f = (lre_id_continue_table_ascii[c >> 5] >> (c & 31));
+        uint32_t g = (lre_id_continue_table_ascii[c >> 5] >> (c & 31)) & 1;
+        printf("%d, %d, %d, %d", d, e, f, g);
         return (lre_id_continue_table_ascii[c >> 5] >> (c & 31)) & 1;
     } else {
         /* ZWNJ and ZWJ are accepted in identifiers */
